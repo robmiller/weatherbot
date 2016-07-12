@@ -24,6 +24,13 @@ rescue WeatherbotException => e
   abort "Couldn't fetch weather forecast: #{e.message}"
 end
 
+wet = false
+
 forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
-  puts "#{hour.hour} — #{hour.temperature}ºC — #{hour.condition}"
+  puts "#{hour.hour}:00 — #{hour.temperature}ºC — #{hour.condition}"
+  wet = true if hour.condition =~ /rain|shower/i
+end
+
+if wet
+  puts "Better take an umbrella!"
 end
