@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
+require "pathname"
 $:.unshift(Pathname(__dir__) + ".." + "lib")
+
 require "weatherbot"
 
 period = ARGV[0]
