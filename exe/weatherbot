@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+
+$:.unshift(Pathname(__dir__) + ".." + "lib")
+require "weatherbot"
+require "pry"
+
+period = ARGV[0]
+
+selected_hours = case period
+                 when "lunchtime"
+                   [12, 13, 14]
+                 when "hometime"
+                   [17, 18, 19]
+                 when /\A(([0-9]+,?)+)\z/
+                   period.split(",").map(&:to_i)
+                 else
+                   [12, 13, 14, 17, 18, 19]
+                 end
+
+begin
+  api = Weatherbot::API.new(api_key: ENV["WUNDERGROUND_API_KEY"])
+  forecast = Weatherbot::Forecast.new(api: api, region: "UK", city: "London")
+rescue WeatherbotException => e
+  abort "Couldn't fetch weather forecast: #{e.message}"
+end
+
+forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
+  puts "#{hour.hour} — #{hour.temperature}ºC — #{hour.condition}"
+end
