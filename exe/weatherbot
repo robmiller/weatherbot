@@ -53,6 +53,8 @@ forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
     print "Really cloudy. "
   elsif hour.cloud_cover > 50
     print "Cloudy. "
+  elsif hour.cloud_cover < 5
+    print "Not a cloud in the sky. "
   end
 
   if hour.wind_speed > 50
