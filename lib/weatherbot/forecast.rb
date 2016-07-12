@@ -1,3 +1,5 @@
+require "date"
+
 module Weatherbot
   Hour = Struct.new(:hour, :temperature, :condition)
 
