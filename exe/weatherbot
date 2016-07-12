@@ -26,12 +26,50 @@ rescue WeatherbotException => e
 end
 
 wet = false
+snow = false
 
 forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
-  puts "#{hour.hour}:00 — #{hour.temperature}ºC — #{hour.condition}"
   wet = true if hour.condition =~ /rain|shower/i
+  snow = true if hour.snow?
+
+  print "#{hour.hour}:00: "
+  print "#{hour.temperature}ºC (feels like #{hour.feels_like}ºC). "
+
+  if hour.temperature > 25
+    print "Absolutely roasting! "
+  elsif hour.temperature > 20
+    print "Pretty hot. "
+  end
+
+  if hour.dew_point > 22
+    print "Unbearadbly humid. "
+  elsif hour.dew_point > 18
+    print "Uncomfortably humid. "
+  elsif hour.dew_point > 16
+    print "Pretty humid. "
+  end
+
+  if hour.cloud_cover > 90
+    print "Really cloudy. "
+  elsif hour.cloud_cover > 50
+    print "Cloudy. "
+  end
+
+  if hour.wind_speed > 50
+    print "Literally gale-force winds. Be careful! "
+  elsif hour.wind_speed > 35
+    print "Very windy. "
+  elsif hour.wind_speed > 20
+    print "Pretty windy. "
+  elsif hour.wind_speed > 10
+    print "Breezy. "
+  end
+
+  puts "#{hour.condition}."
 end
 
-if wet
+if snow
+  puts "IT'S GOING TO SNOW!!!!!!!"
+elsif wet
   puts "Better take an umbrella!"
 end
