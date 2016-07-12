@@ -25,11 +25,9 @@ rescue WeatherbotException => e
   abort "Couldn't fetch weather forecast: #{e.message}"
 end
 
-wet = false
 snow = false
 
 forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
-  wet = true if hour.condition =~ /rain|shower/i
   snow = true if hour.snow?
 
   print "#{hour.hour}:00: "
@@ -57,6 +55,14 @@ forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
     print "Not a cloud in the sky. "
   end
 
+  if hour.chance_of_rain > 80
+    print "Basically guaranteed to rain. "
+  elsif hour.chance_of_rain > 40
+    print "Rain is likely. "
+  elsif hour.chance_of_rain > 0
+    print "Rain is possible but unlikely. "
+  end
+
   if hour.wind_speed > 50
     print "Literally gale-force winds. Be careful! "
   elsif hour.wind_speed > 35
@@ -67,11 +73,9 @@ forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
     print "Breezy. "
   end
 
-  puts "#{hour.condition}."
+  puts
 end
 
 if snow
   puts "IT'S GOING TO SNOW!!!!!!!"
-elsif wet
-  puts "Better take an umbrella!"
 end

@@ -1,7 +1,7 @@
 require "date"
 
 module Weatherbot
-  Hour = Struct.new(:hour, :temperature, :feels_like, :dew_point, :condition, :wind_speed, :cloud_cover, :snow?)
+  Hour = Struct.new(:hour, :temperature, :feels_like, :dew_point, :condition, :wind_speed, :cloud_cover, :snow?, :chance_of_rain)
 
   class Forecast
     def initialize(api:, region:, city:)
@@ -23,7 +23,8 @@ module Weatherbot
                    hour["condition"],
                    hour["wspd"]["metric"].to_i,
                    hour["sky"].to_i,
-                   hour["snow"]["metric"].to_i > 0)
+                   hour["snow"]["metric"].to_i > 0,
+                   hour["pop"].to_i)
         end
     end
 
