@@ -18,7 +18,7 @@ selected_hours = case period
                  end
 
 begin
-  api = Weatherbot::API.new(api_key: ENV["WUNDERGROUND_API_KEY"])
+  api = Weatherbot::API.new(api_key: ENV.fetch("WUNDERGROUND_API_KEY"))
   forecast = Weatherbot::Forecast.new(api: api, region: "UK", city: "London")
 rescue WeatherbotException => e
   abort "Couldn't fetch weather forecast: #{e.message}"
