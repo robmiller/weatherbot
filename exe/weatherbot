@@ -42,7 +42,7 @@ forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
   end
 
   if hour.dew_point > 22
-    print "Unbearadbly humid. "
+    print "Unbearably humid. "
   elsif hour.dew_point > 18
     print "Uncomfortably humid. "
   elsif hour.dew_point > 16
