@@ -2,7 +2,6 @@
 
 $:.unshift(Pathname(__dir__) + ".." + "lib")
 require "weatherbot"
-require "pry"
 
 period = ARGV[0]
 
