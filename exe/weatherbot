@@ -69,8 +69,8 @@ forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
     print "Very windy. "
   elsif hour.wind_speed > 20
     print "Pretty windy. "
-  elsif hour.wind_speed > 10
-    print "Breezy. "
+  elsif hour.wind_speed > 12
+    print %w(Breezy Brisk Airy Blowy Blustery Mildly\ windy).sample + ". "
   end
 
   puts
