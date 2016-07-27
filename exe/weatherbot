@@ -55,13 +55,7 @@ forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
     print "Not a cloud in the sky. "
   end
 
-  if hour.chance_of_rain > 80
-    print "Basically guaranteed to rain. "
-  elsif hour.chance_of_rain > 40
-    print "Rain is likely. "
-  elsif hour.chance_of_rain > 0
-    print "Rain is possible but unlikely. "
-  end
+  print "#{hour.chance_of_rain}% chance of rain. "
 
   if hour.wind_speed > 50
     print "Literally gale-force winds. Be careful! "
