@@ -57,13 +57,13 @@ forecast.hours.select { |h| selected_hours.include?(h.hour) }.each do |hour|
 
   print "#{hour.chance_of_rain}% chance of rain. "
 
-  if hour.wind_speed > 50
+  if hour.wind_speed > 60
     print "Literally gale-force winds. Be careful! "
-  elsif hour.wind_speed > 35
+  elsif hour.wind_speed > 50
     print "Very windy. "
-  elsif hour.wind_speed > 20
+  elsif hour.wind_speed > 40
     print "Pretty windy. "
-  elsif hour.wind_speed > 12
+  elsif hour.wind_speed > 30
     print %w(Breezy Brisk Airy Blowy Blustery Mildly\ windy).sample + ". "
   end
 
